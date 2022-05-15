@@ -16,6 +16,8 @@ namespace OnlineStoreWebApp
         {
         }
 
+        //списки наших сутностей
+
         public virtual DbSet<City> Cities { get; set; } = null!;
         public virtual DbSet<Country> Countries { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
@@ -25,6 +27,7 @@ namespace OnlineStoreWebApp
         public virtual DbSet<Post> Posts { get; set; } = null!;
         public virtual DbSet<PostOffice> PostOffices { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
+        public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Saller> Sallers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -38,6 +41,7 @@ namespace OnlineStoreWebApp
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+      
             modelBuilder.Entity<City>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -165,6 +169,21 @@ namespace OnlineStoreWebApp
                 entity.Property(e => e.Name).HasMaxLength(50);
 
                 entity.Property(e => e.Price).HasColumnType("money");
+
+                entity.Property(e => e.isInStock).HasColumnType("bit");
+
+                entity.HasOne(c => c.Category)
+                .WithMany(p => p.Products)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Products_Categories");
+
+            });
+
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Name).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Saller>(entity =>

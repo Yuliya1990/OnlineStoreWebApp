@@ -40,7 +40,7 @@ namespace OnlineStoreWebApp.Controllers
             }
 
             //return View(post);
-            return RedirectToAction("Index", "PostOffices", new { id = post.Id, name = post.Name, isPost = true });
+            return RedirectToAction("Index", "PostOffices", new { postId = post.Id});
         }
 
         // GET: Posts/Create
@@ -56,6 +56,8 @@ namespace OnlineStoreWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Post post)
         {
+            if (_context.Posts.Any(p => p.Name == post.Name))
+                ModelState.AddModelError("Name", "This post already exists");
             if (ModelState.IsValid)
             {
                 _context.Add(post);
@@ -92,6 +94,8 @@ namespace OnlineStoreWebApp.Controllers
             {
                 return NotFound();
             }
+            if (_context.Posts.Any(p => p.Name == post.Name))
+                ModelState.AddModelError("Name", "This post already exists");
 
             if (ModelState.IsValid)
             {

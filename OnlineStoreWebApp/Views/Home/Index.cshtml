@@ -1,7 +1,50 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model OnlineStoreWebApp.Models.ViewModels.HomeViewModels
 
 <div class="text-center">
     <h1 class="display-4">Welcome!</h1>
+    <p></p>
 </div>
+
+<div class="row">
+<ul class="nav nav-tabs col-lg-13">
+  <li class="nav-item">
+    <a asp-action = "Index" class="nav-link" >All products</a>
+  </li>
+  @foreach(var category in Model.Categories)
+  {
+        <li class="nav-item">
+            <a asp-action="Index" asp-route-categoryId="@category.Id" class="nav-link">@category.Name</a>
+        </li>
+  }
+</ul>
+</div>
+
+<br/>
+@if (Model.Products.Any())
+{
+    <div class="row">
+        @{
+            foreach (var product in Model.Products)
+            {
+
+                <partial name="_ProductCard" model="product" />
+            }
+
+        }
+    </div>
+}
+else
+{
+<div>No products ;( </div>
+}
+
+
+
+    
+
+    
+
+

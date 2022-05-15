@@ -15,20 +15,112 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = C:\Users\Юлия\Desktop\ООП\2 семестр\ЛАБА1\OnlineStoreWebApp\OnlineStoreWebApp
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Categories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Categories/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Categories/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Categories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Home/Buy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxCdXkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Orders/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Orders/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Orders/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Orders/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Orders/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/PostOffices/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdE9mZmljZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/PostOffices/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdE9mZmljZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/PostOffices/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdE9mZmljZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/PostOffices/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdE9mZmljZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Posts/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Posts/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Posts/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Posts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Products/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Products/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Products/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Products/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Shared/_ProductCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Qcm9kdWN0Q2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/ShopCart/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcENhcnRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Юлия/Desktop/ООП/2 семестр/ЛАБА1/OnlineStoreWebApp/OnlineStoreWebApp/Views/_ViewImports.cshtml]

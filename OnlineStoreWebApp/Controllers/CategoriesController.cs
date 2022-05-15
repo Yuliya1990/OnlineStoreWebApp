@@ -9,23 +9,22 @@ using OnlineStoreWebApp;
 
 namespace OnlineStoreWebApp.Controllers
 {
-    public class CitiesHeaderController : Controller
+    public class CategoriesController : Controller
     {
         private readonly DbOnlineStoreContext _context;
 
-        public CitiesHeaderController(DbOnlineStoreContext context)
+        public CategoriesController(DbOnlineStoreContext context)
         {
             _context = context;
         }
 
-        // GET: CitiesHeader
+        // GET: Categories
         public async Task<IActionResult> Index()
         {
-            var dbOnlineStoreContext = _context.Cities.Include(c => c.Country);
-            return View(await dbOnlineStoreContext.ToListAsync());
+            return View(await _context.Categories.ToListAsync());
         }
 
-        // GET: CitiesHeader/Details/5
+        // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,42 +32,41 @@ namespace OnlineStoreWebApp.Controllers
                 return NotFound();
             }
 
-            var city = await _context.Cities
-                .Include(c => c.Country)
+            var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (city == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(city);
+            return RedirectToAction("Index", "Products", new { categoryId = id});
         }
 
-        // GET: CitiesHeader/Create
+        // GET: Categories/Create
         public IActionResult Create()
         {
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name");
             return View();
         }
 
-        // POST: CitiesHeader/Create
+        // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CountryId")] City city)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
+            if (_context.Categories.Any(c => c.Name == category.Name))
+                ModelState.AddModelError("Name", "This category already exists");
             if (ModelState.IsValid)
             {
-                _context.Add(city);
+                _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", city.CountryId);
-            return View(city);
+            return View(category);
         }
 
-        // GET: CitiesHeader/Edit/5
+        // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,37 +74,39 @@ namespace OnlineStoreWebApp.Controllers
                 return NotFound();
             }
 
-            var city = await _context.Cities.FindAsync(id);
-            if (city == null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", city.CountryId);
-            return View(city);
+            return View(category);
         }
 
-        // POST: CitiesHeader/Edit/5
+        // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CountryId")] City city)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
         {
-            if (id != city.Id)
+            if (id != category.Id)
             {
                 return NotFound();
             }
+
+            if (_context.Categories.Any(c => c.Name == category.Name))
+                ModelState.AddModelError("Name", "This category already exists");
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(city);
+                    _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CityExists(city.Id))
+                    if (!CategoryExists(category.Id))
                     {
                         return NotFound();
                     }
@@ -117,11 +117,10 @@ namespace OnlineStoreWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", city.CountryId);
-            return View(city);
+            return View(category);
         }
 
-        // GET: CitiesHeader/Delete/5
+        // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,31 +128,30 @@ namespace OnlineStoreWebApp.Controllers
                 return NotFound();
             }
 
-            var city = await _context.Cities
-                .Include(c => c.Country)
+            var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (city == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(city);
+            return View(category);
         }
 
-        // POST: CitiesHeader/Delete/5
+        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var city = await _context.Cities.FindAsync(id);
-            _context.Cities.Remove(city);
+            var category = await _context.Categories.FindAsync(id);
+            _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CityExists(int id)
+        private bool CategoryExists(int id)
         {
-            return _context.Cities.Any(e => e.Id == id);
+            return _context.Categories.Any(e => e.Id == id);
         }
     }
 }

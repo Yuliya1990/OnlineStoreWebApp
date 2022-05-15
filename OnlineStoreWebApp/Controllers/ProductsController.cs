@@ -1,5 +1,4 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,22 +9,35 @@ using OnlineStoreWebApp;
 
 namespace OnlineStoreWebApp.Controllers
 {
-    public class CountriesController : Controller
+    public class ProductsController : Controller
     {
         private readonly DbOnlineStoreContext _context;
 
-        public CountriesController(DbOnlineStoreContext context)
+        public ProductsController(DbOnlineStoreContext context)
         {
             _context = context;
         }
 
-        // GET: Countries
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> goBack()
         {
-            return View(await _context.Countries.ToListAsync());
+            return RedirectToAction("Index", "Categories");
         }
 
-        // GET: Countries/Details/5
+        // GET: Products
+        public async Task<IActionResult> Index(int? categoryId)
+        {
+            if(categoryId != null)
+            {
+                var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);
+                ViewBag.Category = category.Name;
+                var productsByCat = _context.Products.Where(c => c.CategoryId == categoryId).Include(p => p.Category);
+                return View(await productsByCat.ToListAsync());
+            }
+            var dbOnlineStoreContext = _context.Products.Include(p => p.Category);
+            return View(await dbOnlineStoreContext.ToListAsync());
+        }
+
+        // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,40 +45,44 @@ namespace OnlineStoreWebApp.Controllers
                 return NotFound();
             }
 
-            var country = await _context.Countries
+            var product = await _context.Products
+                .Include(p => p.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (country == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            //return View(country);
-            return RedirectToAction("Index", "Cities", new { id = country.Id, name = country.Name });
+            return View(product);
         }
 
-        // GET: Countries/Create
+        // GET: Products/Create
         public IActionResult Create()
         {
+             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            /*ViewData["CategoryId"] = new SelectList(_context.Categories, "Name", "Name");*/
             return View();
         }
 
-        // POST: Countries/Create
+        // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Country country)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Info,Img,CategoryId")] Product product)
         {
+       
             if (ModelState.IsValid)
             {
-                _context.Add(country);
+                _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(country);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
+            return View(product);
         }
 
-        // GET: Countries/Edit/5
+        // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +90,23 @@ namespace OnlineStoreWebApp.Controllers
                 return NotFound();
             }
 
-            var country = await _context.Countries.FindAsync(id);
-            if (country == null)
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(country);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
+            return View(product);
         }
 
-        // POST: Countries/Edit/5
+        // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Country country)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Info,Img,CategoryId")] Product product)
         {
-            if (id != country.Id)
+            if (id != product.Id)
             {
                 return NotFound();
             }
@@ -98,12 +115,12 @@ namespace OnlineStoreWebApp.Controllers
             {
                 try
                 {
-                    _context.Update(country);
+                    _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CountryExists(country.Id))
+                    if (!ProductExists(product.Id))
                     {
                         return NotFound();
                     }
@@ -114,10 +131,11 @@ namespace OnlineStoreWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(country);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
+            return View(product);
         }
 
-        // GET: Countries/Delete/5
+        // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,30 +143,31 @@ namespace OnlineStoreWebApp.Controllers
                 return NotFound();
             }
 
-            var country = await _context.Countries
+            var product = await _context.Products
+                .Include(p => p.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (country == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(country);
+            return View(product);
         }
 
-        // POST: Countries/Delete/5
+        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
-            _context.Countries.Remove(country);
+            var product = await _context.Products.FindAsync(id);
+            _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CountryExists(int id)
+        private bool ProductExists(int id)
         {
-            return _context.Countries.Any(e => e.Id == id);
+            return _context.Products.Any(e => e.Id == id);
         }
     }
 }

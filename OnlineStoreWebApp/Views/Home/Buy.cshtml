@@ -1,0 +1,15 @@
+﻿@model OnlineStoreWebApp.OrderLine
+<h3>Adding @Model.Product.Name into cart</h3>
+
+<form asp-controller ="ShopCart" asp-action="AddProduct">
+    <input type="hidden" value="@Model.Id" name="Id"/>
+    <input type="hidden" value="@Model.ProductId" name="ProductId"/>
+    <div class="form-group">
+        <label asp-for="Quantity" class="control-label"></label>
+        <input asp-for="Quantity" class="form-control" />
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

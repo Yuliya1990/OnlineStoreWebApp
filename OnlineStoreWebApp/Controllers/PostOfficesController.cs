@@ -11,6 +11,7 @@ namespace OnlineStoreWebApp.Controllers
 {
     public class PostOfficesController : Controller
     {
+
         private readonly DbOnlineStoreContext _context;
 
         public PostOfficesController(DbOnlineStoreContext context)
@@ -18,70 +19,47 @@ namespace OnlineStoreWebApp.Controllers
             _context = context;
         }
 
-        // GET: PostOffices
-        public async Task<IActionResult> Index(int? id, string? name, bool isPost)
+        public async Task<IActionResult> goBack()
         {
-            //BACK
-            if (id == null || name == null)
+            return RedirectToAction("Index", "Posts");
+        }
+        public async Task<IActionResult> Index(int? cityId, int? postId)
+        {
+            //GET ALL POSTOFFICES
+            if (cityId==null && postId==null)
             {
-                //TO POSTS LIST
-                if (isPost)
-                    return RedirectToAction("Index", "Posts");
-
-                //TO CITIES LIST
-                else if (!isPost && id != null)
-                {
-                    var city = await _context.Cities
-                                .Include(c => c.Country)
-                                .FirstOrDefaultAsync(m => m.Id == id);
-                    var country = city.Country;
-
-                    return RedirectToAction("Index", "Cities", new { id = country.Id, name = country.Name });
-                }
+                var dbOnlineStoreContext = _context.PostOffices.Include(c => c.Post).Include(c => c.City);
+                return View(await dbOnlineStoreContext.ToListAsync());
             }
-
-            ViewBag.IsPost = isPost;
-
-            if (isPost)
+             
+            //FROM POSTS
+            if (postId != null)
             {
-                ViewBag.PostId = id;
-                ViewBag.PostName = name;
-                var PostOffByPosts = _context.PostOffices.Where(p => p.PostId == id).Include(p => p.Post);
+                var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
+                ViewBag.PostId = postId;
+                ViewBag.PostName = post.Name;
+                var PostOffByPosts = _context.PostOffices.Where(p => p.PostId == postId).Include(p => p.Post).Include(c => c.City);
                 return View(await PostOffByPosts.ToListAsync());
             }
-            else
+            //FROM CITIES
+            else if (cityId != null)
             {
-                ViewBag.CityId = id;
-                ViewBag.CityName = name;
-                var PostOffByCity = _context.PostOffices.Where(p => p.CityId == id).Include(p => p.City);
+                var city = await _context.Cities.FirstOrDefaultAsync(p => p.Id == cityId);
+                ViewBag.CityId = cityId;
+                ViewBag.CityName= city.Name;
+                var PostOffByCity = _context.PostOffices.Where(p => p.CityId == cityId).Include(p => p.Post).Include(c => c.City);
                 return View(await PostOffByCity.ToListAsync());
             }
 
+            return View();
         }
 
-        // GET: PostOffices/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var postOffice = await _context.PostOffices
-                .Include(p => p.City)
-                .Include(p => p.Post)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (postOffice == null)
-            {
-                return NotFound();
-            }
-
-            return View(postOffice);
-        }
 
         // GET: PostOffices/Create
-        public IActionResult Create()
+        public IActionResult Create(int? cityId, int? postId)
         {
+            ViewBag.VCityid = cityId;
+            ViewBag.VPostid = postId;
             ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name");
             ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Name");
             return View();
@@ -92,26 +70,33 @@ namespace OnlineStoreWebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PostId,CityId")] PostOffice postOffice)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(postOffice);
+         public async Task<IActionResult> Create(int? postId, int? cityId, bool? isPost, [Bind("Id,PostId,CityId")] PostOffice postOffice)
+          {
+           if (ModelState.IsValid)
+              {
+               _context.Add(postOffice);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", postOffice.CityId);
-            ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Name", postOffice.PostId);
-            return View(postOffice);
-        }
+               
+               if (isPost == null)
+                   return RedirectToAction(nameof(Index));
+               else if ((bool)isPost)
+                   return RedirectToAction("Index", new { postId = postId });
+
+               return RedirectToAction("Index", new { cityId = cityId });
+              }
+              ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", postOffice.CityId);
+              ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Name", postOffice.PostId);
+              return View(postOffice);
+          }
 
         // GET: PostOffices/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, int? postId)
         {
             if (id == null)
             {
                 return NotFound();
             }
+            ViewBag.VPostid = postId;
 
             var postOffice = await _context.PostOffices.FindAsync(id);
             if (postOffice == null)
@@ -128,7 +113,7 @@ namespace OnlineStoreWebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PostId,CityId")] PostOffice postOffice)
+        public async Task<IActionResult> Edit(int id, int? postId, [Bind("Id,PostId,CityId")] PostOffice postOffice)
         {
             if (id != postOffice.Id)
             {
@@ -153,7 +138,10 @@ namespace OnlineStoreWebApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                if (postId == null)
+                    return RedirectToAction(nameof(Index));
+                else if (postId != null)
+                    return RedirectToAction("Index", new { postId });
             }
             ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", postOffice.CityId);
             ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Name", postOffice.PostId);
@@ -161,12 +149,13 @@ namespace OnlineStoreWebApp.Controllers
         }
 
         // GET: PostOffices/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, int? postId)
         {
             if (id == null)
             {
                 return NotFound();
             }
+            ViewBag.VPostid = postId;
 
             var postOffice = await _context.PostOffices
                 .Include(p => p.City)
@@ -183,12 +172,15 @@ namespace OnlineStoreWebApp.Controllers
         // POST: PostOffices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, int? postId)
         {
             var postOffice = await _context.PostOffices.FindAsync(id);
             _context.PostOffices.Remove(postOffice);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (postId == null)
+                return RedirectToAction(nameof(Index));
+            
+                return RedirectToAction("Index", new { postId });
         }
 
         private bool PostOfficeExists(int id)

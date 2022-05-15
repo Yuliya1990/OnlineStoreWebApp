@@ -1,0 +1,52 @@
+﻿@model OnlineStoreWebApp.Models.ShopCart
+
+@{
+	ViewBag.Title = "Cart";
+}
+
+@{
+	if (!Model.OrderLines.Any())
+	{
+		<p> No product added yet ;(</p>
+	}
+	else
+	{
+		  <table class="table">
+        <thead>
+            <tr>
+                <th>
+                   Product
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Quantity
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+		@foreach (var item in Model.OrderLines)
+		{
+			<tr>
+				<td>@item.Product.Name</td>
+				<td>@item.Product.Price.ToString("C")</td>
+				<td>@item.Quantity</td>
+			</tr>
+		}
+		</tbody>
+    </table>
+		<p>Total amount: @Model.TotalAmount.ToString("C")</p>
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<td>
+					<a asp-controller="Home" asp-action="Index" type ="button" class ="btn btn-outline-primary">Continue shopping</a> | 
+					<a type="button" class="btn btn-primary"> Order </a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	}
+}

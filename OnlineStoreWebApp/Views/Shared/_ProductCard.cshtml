@@ -1,0 +1,13 @@
+﻿@model OnlineStoreWebApp.Product
+
+ <div class="card-group col-lg-3">
+    <div class="card">
+        <img class="card-img" src="@Model.Img" alt="Model.Name">
+            <div class="card-body"></div>
+            <div class="text-center card-text">
+                    <p>@Model.Name</p>
+                    <p>@Model.Price.ToString("C")</p>
+            </div>
+          <a asp-controller="Home" asp-action="Buy" asp-route-productId="@Model.Id" type="button" class="btn btn-primary">Buy</a> 
+    </div>
+</div>
